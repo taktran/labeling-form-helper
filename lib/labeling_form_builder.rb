@@ -1,6 +1,7 @@
 require 'labeling_form_helper_helper'
 
-class LabelingFormBuilder < ActionView::Helpers::FormBuilder
+module LabelingFormHelper
+class  FormBuilder < ActionView::Helpers::FormBuilder
   include LabelingFormHelper::Helper
   
   LABELABLE = (field_helpers + public_instance_methods.grep(/select/)) - 
@@ -50,4 +51,6 @@ class LabelingFormBuilder < ActionView::Helpers::FormBuilder
       from_name = /\s+name="([^"]+)"/.match(tag).captures[0].scan(/\w+/).join('_')
       from_id || from_name
     end
+
+end
 end
