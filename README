@@ -1,0 +1,23 @@
+
+Labeling Form Helper
+====================
+Contributors:
+- Seth Thomas Rasmussen : http://sethrasmussen.com : sethrasmussen@gmail.com
+- Jeremy Kemper
+====================
+
+Adds auto-labeling with some custom options to Rails' form helpers by extending ActionView::Helpers::FormBuilder and ActionView::Helpers::FormTagHelper.
+
+  builder.text_field :foo, :label => 'yeah, foo'
+  # <label for="foo">yeah, foo</label><input ... />
+
+All of the original helper options are available, with some additional ones for customizing the output of the label and the tag.
+
+  :label => text between label tags. pass +false+ to disable label generation.
+    default: attribute_name.humanize
+  :label_wrap => whether or not the label closes before or after the input
+    default: false
+  :label_after => whether or not the the label text appears before or after the input. :label_wrap must be true for this option to apply
+    default: false
+    
+Yay! Making forms sucks even less now!
