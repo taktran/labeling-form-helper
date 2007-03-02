@@ -1,8 +1,7 @@
 require 'labeling_form_helper_helper'
 
-module LabelingFormHelper
-class  FormBuilder < ActionView::Helpers::FormBuilder
-  include LabelingFormHelper::Helper
+class  LabelingFormBuilder < ActionView::Helpers::FormBuilder
+  include LabelingFormHelperHelper
   
   LABELABLE = (field_helpers + public_instance_methods.grep(/select/)) - 
               %w( form_for fields_for hidden_field )

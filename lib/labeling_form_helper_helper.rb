@@ -1,5 +1,4 @@
-module LabelingFormHelper
-module Helper
+module LabelingFormHelperHelper
   
   def self.included(base)
     public_instance_methods.each { |msg| base.send :private, msg }
@@ -66,5 +65,4 @@ module Helper
     [:check_box_tag, :radio_button_tag].include? helper.to_sym
   end
   
-end
 end

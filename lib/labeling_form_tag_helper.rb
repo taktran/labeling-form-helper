@@ -3,7 +3,7 @@ require 'labeling_form_helper_helper'
 module ActionView
 module Helpers
 module FormTagHelper
-  include LabelingFormHelper::Helper
+  include LabelingFormHelperHelper
   
   LABELABLE = public_instance_methods.reject { |h| h =~ /form|submit|hidden|unlabeled/ }
   
