@@ -8,8 +8,8 @@ class  LabelingFormBuilder < ActionView::Helpers::FormBuilder
   
   new_helpers = LABELABLE.inject('') do |defs,helper|
     defs << %{
-      # def #{helper}(*args)
-      def #{helper}_with_label(*args)
+      def #{helper}(*args)
+      # def #{helper}_with_label(*args)
         label = extract_label_options! args
         
         # handle_disparate_args! :#{helper}, args
@@ -39,7 +39,7 @@ class  LabelingFormBuilder < ActionView::Helpers::FormBuilder
         end
       end
       
-      alias_method_chain :#{helper}, :label
+      # alias_method_chain :#{helper}, :label
     }
   end
   
