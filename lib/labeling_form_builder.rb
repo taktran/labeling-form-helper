@@ -52,4 +52,3 @@ class  LabelingFormBuilder < ActionView::Helpers::FormBuilder
     end
 
 end
-end
