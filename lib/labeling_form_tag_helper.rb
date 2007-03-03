@@ -38,11 +38,13 @@ module FormTagHelper
           [content_tag(:label, label[:text], label_html), unlabeled_tag].join("\n")
         end
       end
-      alias_method_chain :#{helper}, :label
+      
     }
   end
   
   module_eval new_helpers, __FILE__, __LINE__
+  
+  LABELABLE.each { |helper| alias_method_chain helper.to_sym, :label }
   
   private    
     def extract_id(name)
