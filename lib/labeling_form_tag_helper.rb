@@ -2,10 +2,10 @@ require 'labeling_form_helper_helper'
 
 module ActionView
 module Helpers
-module FormTagHelper
-  include LabelingFormHelperHelper
-  
+module FormTagHelper  
   LABELABLE = public_instance_methods.reject { |h| h =~ /form|submit|hidden|unlabeled/ }
+  
+  include LabelingFormHelperHelper
   
   new_helpers = LABELABLE.inject('') do |defs, helper|    
     defs << %{
@@ -39,12 +39,11 @@ module FormTagHelper
         end
       end
       
+      alias_method_chain :#{helper}, :label
     }
   end
   
   module_eval new_helpers, __FILE__, __LINE__
-  
-  LABELABLE.each { |helper| alias_method_chain helper.to_sym, :label }
   
   private    
     def extract_id(name)
