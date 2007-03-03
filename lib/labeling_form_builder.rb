@@ -47,9 +47,7 @@ class  LabelingFormBuilder < ActionView::Helpers::FormBuilder
   
   private
     def extract_id(tag)
-      from_id   = /\s+id="([^"]+)"/.match(tag).captures[0]
-      from_name = /\s+name="([^"]+)"/.match(tag).captures[0].scan(/\w+/).join('_')
-      from_id || from_name
+      tag.slice %r(\[([^]]+)\]), 1
     end
 
 end
