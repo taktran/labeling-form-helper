@@ -1,8 +1,9 @@
 module LabelingFormHelperHelper
   
   def self.included(base)
-    # LabelingFormHelperHelper.instance_methods.each { |name| base.send :protected, name }
+    instance_methods.each { |name| base.send :protected, name }
   end
+  
   
   def extract_label_options!(args)
     return {} unless args.last.is_a? Hash
