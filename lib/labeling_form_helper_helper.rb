@@ -1,8 +1,8 @@
 module LabelingFormHelperHelper
   
-  # def self.included(base)
-  #   LabelingFormHelperHelper.public_instance_methods.each { |msg| base.send :private, msg }
-  # end
+  def self.included(base)
+    LabelingFormHelperHelper.instance_methods.each { |msg| base.send :private, msg }
+  end
   
   def extract_label_options!(args)
     return {} unless args.last.is_a? Hash
