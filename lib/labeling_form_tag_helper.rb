@@ -9,8 +9,9 @@ module FormTagHelper
   
   new_helpers = LABELABLE.inject('') do |defs, helper|    
     defs << %{
-      def #{helper}_with_label(*args)
-        label = LabelingFormHelperHelper.extract_label_options! args
+      def #{helper}(*args)
+      # def #{helper}_with_label(*args)
+        label = extract_label_options! args
                 
         handle_disparate_args! :#{helper}, args
         
@@ -38,7 +39,7 @@ module FormTagHelper
           [content_tag(:label, label[:text], label_html), unlabeled_tag].join("\n")
         end
       end
-      alias_method_chain :#{helper}, :label
+      # alias_method_chain :#{helper}, :label
     }
   end
   
