@@ -1,9 +1,7 @@
-module LabelingFormHelperHelper
-  
+module LabelingFormHelperHelper  
   def self.included(base)
     instance_methods.each { |name| base.send :protected, name }
-  end
-  
+  end  
   
   def extract_label_options!(args)
     return {} unless args.last.is_a? Hash
@@ -25,9 +23,7 @@ module LabelingFormHelperHelper
   end
   
   def validate_after_option!(label)
-    if label[:after]
-      raise ArgumentError, ':label_after works in conjunction with :label_wrap => true'
-    end
+    raise ArgumentError, ':label_after works in conjunction with :label_wrap => true' if label[:after]
   end
   
   # We need to account for certain optional arguments
@@ -64,6 +60,5 @@ module LabelingFormHelperHelper
   # Returns true for +helper+ == :check_box_tag and :radio_button_tag
   def check_or_radio?(helper)
     [:check_box_tag, :radio_button_tag].include? helper.to_sym
-  end
-  
+  end  
 end

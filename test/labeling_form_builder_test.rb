@@ -4,8 +4,7 @@ require 'test_helper'
 # tag helper methods, we will simply assert that our monkey patching is
 # part of the stack trace.
 begin
-  require 'mocha'
-  require 'stubba'
+  %w( mocha stubba ).each { |x| require x }
 rescue LoadError
   puts "Cannot run #{__FILE__} because mocha/stubba is not installed."
 end

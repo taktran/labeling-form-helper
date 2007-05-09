@@ -9,4 +9,4 @@ require 'action_controller'
 require 'action_view'
 
 # Setup the plugin
-require File.join File.dirname(__FILE__), '..', 'init'
+require File.join(File.dirname(__FILE__), '..', 'init')

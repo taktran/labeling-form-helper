@@ -14,7 +14,7 @@ class LabelingFormTagHelperTest < Test::Unit::TestCase
       expected = send(*unlabeled_args).split(/\s+/).to_set
       actual   = send(helper, :foo, :label => false).split(/\s+/).to_set
       
-      assert_equal expected, actual                   
+      assert_equal expected, actual
     end
   end
 
@@ -45,7 +45,7 @@ class LabelingFormTagHelperTest < Test::Unit::TestCase
   
   def test_label_after_requires_wrap
     labelable_helpers.each do |helper|
-      assert_raise ArgumentError do
+      assert_raises ArgumentError do
         send helper, :foo, :label_after => true
       end
     end
@@ -55,6 +55,14 @@ class LabelingFormTagHelperTest < Test::Unit::TestCase
     labelable_helpers.each do |helper|
       assert_match %r(Foo</label>\Z),
         send(helper, :foo, :label_wrap => true, :label_after => true)
+    end
+  end
+  
+  def test_labels_once
+    labelable_helpers.each do |helper|      
+      label_tags = send(helper, :foo).scan(%r(</?label)).size
+      
+      assert_equal 2, label_tags, ":#{helper} labeled #{label_tags / 2} times"
     end
   end
   
