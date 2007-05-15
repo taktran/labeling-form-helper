@@ -48,7 +48,7 @@ class  LabelingFormBuilder < ActionView::Helpers::FormBuilder
   class_eval new_helpers, __FILE__, __LINE__
   
   private
-    def extract_id(tag)
+    def extract_for(tag)
       tag.slice %r{id="([^"]+)"}, 1
     end
 end
