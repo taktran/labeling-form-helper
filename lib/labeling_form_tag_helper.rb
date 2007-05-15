@@ -43,7 +43,7 @@ module LabelingFormTagHelper
         end
       end
       
-      alias_method_chain :#{helper}, :label
+      # alias_method_chain :#{helper}, :label
     }
   end
   
