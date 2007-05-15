@@ -21,7 +21,7 @@ class  LabelingFormBuilder < ActionView::Helpers::FormBuilder
         return unlabeled_tag if label[:disabled]
         
         label[:for]  ||= extract_for unlabeled_tag
-        label[:text] ||= args.first.humanize
+        label[:text] ||= args.first.to_s.humanize
         
         label_html = extract_label_html! label
         
