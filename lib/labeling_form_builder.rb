@@ -14,14 +14,14 @@ class  LabelingFormBuilder < ActionView::Helpers::FormBuilder
       # def #{helper}_with_label(*args)
         label = extract_label_options! args
         
-        # handle_disparate_args! :#{helper}, args
+        handle_disparate_args! :#{helper}, args
 
         # allow access to original behavior using :label => false
         unlabeled_tag = super # #{helper}_without_label *args
         return unlabeled_tag if label[:disabled]
         
-        label[:for]  ||= extract_id unlabeled_tag
-        label[:text] ||= label[:for].humanize
+        label[:for]  ||= extract_for unlabeled_tag
+        label[:text] ||= args.first.humanize
         
         label_html = extract_label_html! label
         
@@ -49,6 +49,6 @@ class  LabelingFormBuilder < ActionView::Helpers::FormBuilder
   
   private
     def extract_id(tag)
-      tag.slice %r{\[([^]]+)\]}, 1
+      tag.slice %r{id="([^"]+)"}, 1
     end
 end
