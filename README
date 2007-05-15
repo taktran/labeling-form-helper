@@ -13,11 +13,16 @@ Adds auto-labeling with some custom options to Rails' form helpers by extending 
 
 All of the original helper options are available, with some additional ones for customizing the output of the label and the tag.
 
-  :label => text between label tags. pass +false+ to disable label generation.
-    default: attribute_name.humanize
-  :label_wrap => whether or not the label closes before or after the input
-    default: false
-  :label_after => whether or not the the label text appears before or after the input. :label_wrap must be true for this option to apply
-    default: false
+    :label       => text between label tags. pass +false+ to disable label generation - default: attribute_name.humanize
+    :label_wrap  => whether or not the label closes before or after the input - default: false
+    :label_after => whether or not the the label text appears before or after the input. :label_wrap must be true for this option to apply - default: false
     
+To enable the LabelingFormBuilder:
+
+    ActionView::Base.default_form_builder = LabelingFormBuilder
+    
+To enable the LabelingFormTagHelper:
+
+    include LabelingFormTagHelper
+
 Yay! Making forms sucks even less now!

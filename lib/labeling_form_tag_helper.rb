@@ -2,22 +2,24 @@ require 'labeling_form_helper_helper'
 
 module ActionView
 module Helpers
-module FormTagHelper
+module LabelingFormTagHelper
   include LabelingFormHelperHelper
   
   # A list of labelable helpers. We exclude password and file fields because they use text field,
   # so we would get double labels including them.
-  LABELABLE = public_instance_methods.reject { |h| h =~ /form|submit|hidden|unlabeled|password|file/ }
+  LABELABLE = FormTagHelper.public_instance_methods.reject { |h| h =~ /form|submit|hidden|unlabeled|password|file/ }
   
   new_helpers = LABELABLE.inject('') do |defs, helper|    
     defs << %{
-      def #{helper}_with_label(*args)
+      # def #{helper}_with_label(*args)
+      def #{helper}(*args)
         label = extract_label_options! args
                 
         handle_disparate_args! :#{helper}, args
         
         # allow access to old behavior with :label => false
-        unlabeled_tag = #{helper}_without_label *args
+        # unlabeled_tag = #{helper}_without_label *args
+        unlabeled_tag = FormTagHelper.#{helper} *args
         return unlabeled_tag if label[:disabled]
         
         name = args.first.to_s
