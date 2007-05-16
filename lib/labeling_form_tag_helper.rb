@@ -19,7 +19,7 @@ module LabelingFormTagHelper
         
         # allow access to old behavior with :label => false
         # unlabeled_tag = #{helper}_without_label *args
-        unlabeled_tag = #{helper}_original *args
+        unlabeled_tag = #{helper}_without_label *args
         return unlabeled_tag if label[:disabled]
         
         name = args.first.to_s
