@@ -70,6 +70,6 @@ class LabelingFormTagHelperTest < Test::Unit::TestCase
   
   private
     def labelable_helpers
-      LabelingFormTagHelper.labelable
+      LabelingFormTagHelper.labelable.reject { |x| x =~ /_with(out)?_label/ }
     end
 end

@@ -54,8 +54,7 @@ private
     # Reunite the options with the rest of the args.
     args << options if options
   end
-
-  # Returns true for +helper+ == :check_box_tag and :radio_button_tag
+  
   def check_or_radio?(helper)
     [:check_box_tag, :radio_button_tag].include? helper.to_sym
   end  
