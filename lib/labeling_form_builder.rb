@@ -5,8 +5,10 @@ class LabelingFormBuilder < ActionView::Helpers::FormBuilder
   
   # A list of labelable helpers. We exclude password and file fields because they use text field,
   # so we would get double labels including them.
-  LABELABLE = (field_helpers + public_instance_methods.grep(/select/)) - 
-              %w( form_for fields_for hidden_field password_field file_field )
+  def self.labelable
+    (field_helpers + public_instance_methods.grep(/select/)) - 
+    %w( form_for fields_for hidden_field password_field file_field )
+  end
   
   new_helpers = LABELABLE.inject('') do |defs,helper|
     defs << %{
