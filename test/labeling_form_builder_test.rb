@@ -1,15 +1,9 @@
-require 'test_helper'
+require File.join(File.dirname(__FILE__), 'test_helper')
 
-# Dependencies for the builder test: since the builder just calls the 
-# tag helper methods, we will simply assert that our monkey patching is
-# part of the stack trace.
-begin
-  %w( mocha stubba ).each { |x| require x }
-rescue LoadError
-  puts "Cannot run #{__FILE__} because mocha/stubba is not installed."
-end
+require 'labeling_form_builder'
 
-
+# See ActionView's FormHelperTest to explain the following setup, and the test's use
+# of setup() and things like setting _erbout to an empty string.
 silence_warnings do
   Post = Struct.new("Post", :title, :author_name, :body, :secret, :written_on, :cost)
   Post.class_eval do
@@ -18,11 +12,6 @@ silence_warnings do
     alias_method :author_name_before_type_cast, :author_name unless respond_to?(:author_name_before_type_cast)
   end
 end
-
-
-# See ActionView's FormHelperTest to explain the following setup, and the test's use
-# of setup() and things like setting _erbout to an empty string.
-
 
 class LabelingFormBuilderTest < Test::Unit::TestCase
   include ActionView::Helpers::FormHelper
@@ -53,10 +42,12 @@ class LabelingFormBuilderTest < Test::Unit::TestCase
       end
     end
     @controller = @controller.new
+    
+    ActionView::Base.default_form_builder = LabelingFormBuilder
   end
   
   def test_labeling_builder_is_used
-    assert_equal LabelingFormBuilder, ActionView::Base.default_form_builder
+    flunk "this test sucks, but the plugin works, i swear."
     
     _erbout = ''
     
@@ -72,7 +63,7 @@ class LabelingFormBuilderTest < Test::Unit::TestCase
   
   private
     def labelable_helpers
-      LabelingFormBuilder::LABELABLE
+      LabelingFormBuilder.labelable
     end
     
     def random_attribute

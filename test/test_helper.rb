@@ -1,12 +1,10 @@
-require 'set'
+dependencies = %w( rubygems active_support action_controller action_view mocha stubba )
+begin
+  dependencies.each { |x| require x }
+rescue LoadError
+  puts "Cannot run #{__FILE__} because you are missing one of the dependencies: #{dependencies * ','}"
+end
+
 require 'test/unit'
 
-require 'rubygems'
-
-# Dependencies for testing the original helpers
-require 'active_support'
-require 'action_controller'
-require 'action_view'
-
-# Setup the plugin
-require File.join(File.dirname(__FILE__), '..', 'init')
+$:.unshift File.join(File.dirname(__FILE__), '..', 'lib')

@@ -1,8 +1,10 @@
-require 'test_helper'
+require File.join(File.dirname(__FILE__), 'test_helper')
+require 'set'
+require 'labeling_form_tag_helper'
 
 class LabelingFormTagHelperTest < Test::Unit::TestCase
   include ActionView::Helpers::TagHelper
-  include ActionView::Helpers::FormTagHelper
+  include LabelingFormTagHelper
 
   def test_original_behavior
     labelable_helpers.each do |helper|
@@ -68,6 +70,6 @@ class LabelingFormTagHelperTest < Test::Unit::TestCase
   
   private
     def labelable_helpers
-      ActionView::Helpers::FormTagHelper::LABELABLE
+      LabelingFormTagHelper.labelable
     end
 end
