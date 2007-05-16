@@ -9,10 +9,6 @@ module LabelingFormTagHelper
     public_instance_methods.reject { |h| h =~ /form|submit|hidden|unlabeled|password|file/ }
   end
   
-  # LABELABLE.each { |helper| alias_method "#{helper}_original", helper }
-  
-  raise labelable.inspect
-  
   new_helpers = labelable.inject('') do |defs, helper|    
     defs << %{
       def #{helper}_with_label(*args)
