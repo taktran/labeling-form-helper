@@ -7,7 +7,7 @@ module LabelingFormTagHelper
   # so we would get double labels including them.
   LABELABLE = public_instance_methods.reject { |h| h =~ /form|submit|hidden|unlabeled|password|file/ }
   
-  LABELABLE.each { |helper| alias :"#{helper}_original", helper.to_sym }
+  LABELABLE.each { |helper| alias :"#{helper}_original" helper.to_sym }
   
   new_helpers = LABELABLE.inject('') do |defs, helper|    
     defs << %{
