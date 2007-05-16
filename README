@@ -19,10 +19,11 @@ All of the original helper options are available, with some additional ones for 
     
 To enable the LabelingFormBuilder:
 
-    ActionView::Base.default_form_builder = LabelingFormBuilder
+    ActionView::Base.default_form_builder = LabelingFormBuilder # from just about anywhere, probably environment.rb or an initializer
     
 To enable the LabelingFormTagHelper:
 
-    include LabelingFormTagHelper
+    include LabelingFormTagHelper # from another helper, e.g. ApplicationHelper
+    helper :labeling_form_tag     # from a controller, e.g. ApplicationController
 
 Yay! Making forms sucks even less now!

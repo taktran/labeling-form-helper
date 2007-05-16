@@ -1,6 +1,6 @@
 require 'labeling_form_helper_helper'
 
-class  LabelingFormBuilder < ActionView::Helpers::FormBuilder
+class LabelingFormBuilder < ActionView::Helpers::FormBuilder
   include LabelingFormHelperHelper
   
   # A list of labelable helpers. We exclude password and file fields because they use text field,
@@ -11,13 +11,12 @@ class  LabelingFormBuilder < ActionView::Helpers::FormBuilder
   new_helpers = LABELABLE.inject('') do |defs,helper|
     defs << %{
       def #{helper}(*args)
-      # def #{helper}_with_label(*args)
         label = extract_label_options! args
         
         handle_disparate_args! :#{helper}, args
 
         # allow access to original behavior using :label => false
-        unlabeled_tag = super # #{helper}_without_label *args
+        unlabeled_tag = super
         return unlabeled_tag if label[:disabled]
         
         label[:for]  ||= extract_for unlabeled_tag
@@ -40,8 +39,6 @@ class  LabelingFormBuilder < ActionView::Helpers::FormBuilder
           [@template.content_tag(:label, label[:text], label_html), unlabeled_tag].join("\n")
         end
       end
-      
-      # alias_method_chain :#{helper}, :label
     }
   end
   

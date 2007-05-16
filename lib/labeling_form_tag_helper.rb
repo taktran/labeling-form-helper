@@ -1,7 +1,5 @@
 require 'labeling_form_helper_helper'
 
-module ActionView
-module Helpers
 module LabelingFormTagHelper
   include LabelingFormHelperHelper
   
@@ -54,6 +52,4 @@ module LabelingFormTagHelper
       name.gsub(/[^a-z0-9_-]+/,'_').gsub(/^_+|_+$/,'')
     end
 
-end
-end
 end
