@@ -6,7 +6,7 @@ module LabelingFormTagHelper
   # A list of labelable helpers. We exclude password and file fields because they use text field,
   # so we would get double labels including them.
   def self.labelable
-    public_instance_methods.reject { |h| h =~ /form|submit|hidden|unlabeled|password|file/ }
+    public_instance_methods.reject { |h| h =~ /form|submit|hidden|password|file/ }
   end
   
   new_helpers = labelable.inject('') do |defs, helper|    

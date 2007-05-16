@@ -15,7 +15,7 @@ class LabelingFormBuilder < ActionView::Helpers::FormBuilder
       def #{helper}(*args)
         label = extract_label_options! args
         
-        handle_disparate_args! :#{helper}, args
+        # handle_disparate_args! :#{helper}, args
 
         # allow access to original behavior using :label => false
         unlabeled_tag = super
