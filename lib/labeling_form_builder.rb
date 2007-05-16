@@ -10,7 +10,7 @@ class LabelingFormBuilder < ActionView::Helpers::FormBuilder
     %w( form_for fields_for hidden_field password_field file_field )
   end
   
-  new_helpers = LABELABLE.inject('') do |defs,helper|
+  new_helpers = labelable.inject('') do |defs,helper|
     defs << %{
       def #{helper}(*args)
         label = extract_label_options! args

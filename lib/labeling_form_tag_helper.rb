@@ -13,7 +13,7 @@ module LabelingFormTagHelper
   
   raise labelable.inspect
   
-  new_helpers = LABELABLE.inject('') do |defs, helper|    
+  new_helpers = labelable.inject('') do |defs, helper|    
     defs << %{
       def #{helper}_with_label(*args)
       # def #{helper}(*args)
