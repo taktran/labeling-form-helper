@@ -29,16 +29,16 @@ private
   #
   # Specifically, we want to be able to ignore them and say things like:
   #     check_box_tag :bulk_delete, :label => false
-  def handle_disparate_args!(helper, args)
+  def handle_disparate_args!(helper_name, args)
     # Ignore the options hash, if present, until we are done munging the args.
     options = args.pop if args.last.is_a? Hash
 
     if args.size == 1
-      if check_or_radio? helper
+      if check_or_radio? helper_name
         args.insert 1, 1
       # Everything except :file_field_tag takes something as its second
       # argument which can be safely defaulted to +nil+.
-      elsif helper != :file_field_tag
+      elsif helper_name != :file_field_tag
         args.insert 1, nil
       end
     end
@@ -46,7 +46,7 @@ private
     # :check_box_tag and :radio_button_tag can take another argument
     # to determine if they are 'checked' or not.
     if args.size == 2
-      if check_or_radio? helper
+      if check_or_radio? helper_name
         args.insert 2, false
       end
     end
@@ -56,7 +56,7 @@ private
   end
 
   # Returns true for +helper+ == :check_box_tag and :radio_button_tag
-  def check_or_radio?(helper)
-    [:check_box_tag, :radio_button_tag].include? helper.to_sym
+  def check_or_radio?(helper_name)
+    [:check_box_tag, :radio_button_tag].include? helper_name.to_sym
   end  
 end
