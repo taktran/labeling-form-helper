@@ -7,13 +7,12 @@ module LabelingFormTagHelper
   # so we would get double labels including them.
   LABELABLE = public_instance_methods.reject { |h| h =~ /form|submit|hidden|unlabeled|password|file/ }
   
-  LABELABLE.each { |helper| alias_method "#{helper}_original", helper }
+  # LABELABLE.each { |helper| alias_method "#{helper}_original", helper }
   
   new_helpers = LABELABLE.inject('') do |defs, helper|    
     defs << %{
-      # def #{helper}_with_label(*args)
-      # alias :#{helper}_original :#{helper}
-      def #{helper}(*args)
+      def #{helper}_with_label(*args)
+      # def #{helper}(*args)
         label = extract_label_options! args
                 
         handle_disparate_args! :#{helper}, args
@@ -44,7 +43,7 @@ module LabelingFormTagHelper
         end
       end
       
-      # alias_method_chain :#{helper}, :label
+      alias_method_chain :#{helper}, :label
     }
   end
   
