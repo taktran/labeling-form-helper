@@ -9,6 +9,8 @@ module LabelingFormTagHelper
   
   # LABELABLE.each { |helper| alias_method "#{helper}_original", helper }
   
+  raise LABELABLE.inspect
+  
   new_helpers = LABELABLE.inject('') do |defs, helper|    
     defs << %{
       def #{helper}_with_label(*args)
