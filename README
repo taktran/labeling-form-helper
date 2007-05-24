@@ -3,7 +3,7 @@ Labeling Form Helper
 ====================
 Contributors:
 - Seth Thomas Rasmussen : http://sethrasmussen.com : sethrasmussen@gmail.com
-- Jeremy Kemper
+- Jeremy Kemper : http://bitsweat.net
 ====================
 
 Adds auto-labeling with some custom options to Rails' form helpers by extending ActionView::Helpers::FormBuilder and ActionView::Helpers::FormTagHelper.
