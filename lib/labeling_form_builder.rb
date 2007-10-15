@@ -15,7 +15,7 @@ class LabelingFormBuilder < ActionView::Helpers::FormBuilder
       label = extract_label_options! args
       
       unlabeled_tag = super
-      return unlabeled_tag if label[:disabled]
+      return unlabeled_tag if false == label
       
       label[:for]  ||= extract_for unlabeled_tag
       label[:text] ||= args.first.to_s.humanize
@@ -28,19 +28,26 @@ class LabelingFormBuilder < ActionView::Helpers::FormBuilder
           [unlabeled_tag, label[:text]]
         else
           [label[:text], unlabeled_tag]
-        end.join("\n")
+        end.join
         
         @template.content_tag(:label, label_and_tag, label_html)
-      else
-        validate_after_option! label
         
-        [@template.content_tag(:label, label[:text], label_html), unlabeled_tag].join("\n")
+      elsif label[:after]
+        unlabeled_tag + @template.content_tag(:label, label[:text], label_html)
+        
+      else
+        @template.content_tag(:label, label[:text], label_html) + unlabeled_tag
+        
       end
     end
   end
   
-  private
-    def extract_for(tag)
-      tag.slice %r{id="([^"]+)"}, 1
-    end
+private
+  def extract_id(tag)
+    tag[/\[([^]]+)\]/, 1]
+  end
+  
+  def extract_for(tag)
+    tag.slice %r{id="([^"]+)"}, 1
+  end
 end

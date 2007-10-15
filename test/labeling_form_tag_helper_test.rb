@@ -28,48 +28,47 @@ class LabelingFormTagHelperTest < Test::Unit::TestCase
   
   def test_label_id
     labelable_helpers.each do |helper|
-      assert_match %r(<label.+id="foo"[^>]*>), send(helper, :foo, :label_id => :foo)
+      assert_match %r(<label.+id="foo"[^>]*>), send(helper, :foo, :label => { :id => :foo })
     end
   end
   
   def test_label_class
     labelable_helpers.each do |helper|
-      assert_match %r(<label.+class="foo"[^>]*>), send(helper, :foo, :label_class => :foo)
+      assert_match %r(<label.+class="foo"[^>]*>), send(helper, :foo, :label => { :class => :foo })
     end
   end
   
   def test_label_wrap
     labelable_helpers.each do |helper|
-      assert_no_match %r(</label>\Z), send(helper, :foo)
-      assert_match    %r(</label>\Z), send(helper, :foo, :label_wrap => true)
+      assert_match    %r(</label>\Z), send(helper, :foo, :label => { :wrap => true })
     end
   end
   
-  def test_label_after_requires_wrap
+  def test_label_after_with_wrap
     labelable_helpers.each do |helper|
-      assert_raises ArgumentError do
-        send helper, :foo, :label_after => true
-      end
+      tag = send helper, :foo, :label => { :wrap => true, :after => true }
+      assert_match    %r(Foo</label>\Z), tag
+      assert_no_match %r(<label[^>]*?>Foo), tag
     end
   end
   
   def test_label_after
     labelable_helpers.each do |helper|
-      assert_match %r(Foo</label>\Z),
-        send(helper, :foo, :label_wrap => true, :label_after => true)
+      tag = send helper, :foo, :label => { :after => true }
+      assert_match    %r(Foo</label>\Z), tag
+      assert_no_match %r(\A<label>),  tag
     end
   end
   
   def test_labels_once
     labelable_helpers.each do |helper|      
-      label_tags = send(helper, :foo).scan(%r(</?label)).size
-      
+      label_tags = send(helper, :foo).scan(%r(</?label)).size      
       assert_equal 2, label_tags, ":#{helper} labeled #{label_tags / 2} times"
     end
   end
   
-  private
-    def labelable_helpers
-      LabelingFormTagHelper.labelable.reject { |x| x =~ /_with(out)?_label/ }
-    end
+private
+  def labelable_helpers
+    LabelingFormTagHelper.labelable
+  end
 end

@@ -1,19 +1,22 @@
 module LabelingFormHelperHelper
     
-private  
+private
   def extract_label_options!(args)
-    return {} unless args.last.is_a? Hash
-
-    options = args.last
-    {
-      :disabled => (options[:label] == false ? true : false),     
-      :text     => options.delete(:label),
-      :class    => options.delete(:label_class),
-      :id       => options.delete(:label_id),
-      :for      => options[:id],
-      :wrap     => options.delete(:label_wrap),
-      :after    => options.delete(:label_after)
-    }
+    options = args.last.is_a?(Hash) ? args.last : {}
+    
+    label = options.delete :label
+    
+    return label if label == false
+    
+    label = case label
+    when Hash   then label
+    when String then { :text => label }
+    when nil    then {}
+    end
+    
+    label[:for] = options[:id]
+    
+    label
   end
   
   def extract_label_html!(label)
@@ -22,5 +25,9 @@ private
   
   def validate_after_option!(label)
     raise ArgumentError, ':label_after works in conjunction with :label_wrap => true' if label[:after]
+  end
+  
+  def check_or_radio?(helper)
+    [:check_box_tag, :radio_button_tag].include? helper.to_sym
   end
 end
