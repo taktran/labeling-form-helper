@@ -2,9 +2,13 @@ require File.join(File.dirname(__FILE__), 'test_helper')
 require 'set'
 require 'labeling_form_tag_helper'
 
-class LabelingFormTagHelperTest < Test::Unit::TestCase
-  include ActionView::Helpers::TagHelper
+module ActionView::Helpers::FormTagHelper
   include LabelingFormTagHelper
+end
+
+class LabelingFormTagHelperTest < Test::Unit::TestCase
+  include ActionView::Helpers::TagHelper,
+          ActionView::Helpers::FormTagHelper
 
   def test_original_behavior
     labelable_helpers.each do |helper|
