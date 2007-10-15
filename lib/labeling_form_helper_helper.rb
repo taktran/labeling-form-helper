@@ -1,6 +1,6 @@
 module LabelingFormHelperHelper #:nodoc:
-    
-private
+  extend self
+  
   def extract_label_options!(args) #:nodoc:
     options = args.last.is_a?(Hash) ? args.last : {}
     

@@ -13,16 +13,14 @@ module LabelingFormTagHelper
   end
   
   # Assumes you will be including this module in ActionView::Helpers::FormTagHelper.
-  def self.included(mod)
-    mod.module_eval { include LabelingFormHelperHelper }
-    
+  def self.included(mod)    
     labelable.each do |helper|
       mod.module_eval do
         
         define_method "#{helper}_with_label" do |*args|
-          label = extract_label_options! args
+          label = LabelingFormHelperHelper.extract_label_options! args
               
-          handle_disparate_args! helper, args
+          LabelingFormHelperHelper.handle_disparate_args! helper, args
       
           unlabeled_tag = send "#{helper}_without_label", *args
           return unlabeled_tag if false == label
@@ -31,7 +29,7 @@ module LabelingFormTagHelper
           label[:text] ||= name.humanize
           label[:for]  ||= extract_id name
       
-          label_html = extract_label_html! label
+          label_html = LabelingFormHelperHelper.extract_label_html! label
       
           if label[:wrap]
             label_and_tag = if label[:after]
