@@ -1,9 +1,9 @@
 require 'labeling_form_builder'
 require 'labeling_form_tag_helper'
 
-module ActionView::Base::Helpers
+module ActionView::Base::Helpers::FormTagHelper
   # Use to overwrite the default, non-instance based form helpers.
-  def self.use_labeling_form_helper!
-    FormTagHelper.send :include, LabelingFormTagHelper
+  def self.enable_labeling_form_helper!
+    module_eval { include LabelingFormTagHelper }
   end
 end
