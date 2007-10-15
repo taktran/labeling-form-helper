@@ -27,7 +27,7 @@ module LabelingFormTagHelper
       
           name = args.first.to_s
           label[:text] ||= name.humanize
-          label[:for]  ||= extract_id name
+          label[:for]  ||= name.gsub(/[^a-z0-9_-]+/, '_').gsub(/^_+|_+$/, '')
       
           label_html = LabelingFormHelperHelper.extract_label_html! label
       
@@ -53,17 +53,13 @@ module LabelingFormTagHelper
     end
   end
   
-private    
-  def extract_id(name) #:nodoc:
-    name.gsub(/[^a-z0-9_-]+/, '_').gsub(/^_+|_+$/, '')
-  end
-  
+private  
   # We need to account for certain optional arguments
   # that can occur before the options hash in the unlabeled helpers.
   #
   # Specifically, we want to be able to ignore them and say things like:
   #     check_box_tag :bulk_delete, :label => false
-  def handle_disparate_args!(helper, args) #:nodoc:
+  def self.handle_disparate_args!(helper, args) #:nodoc:
     # Ignore the options hash, if present, until we are done munging the args.
     options = args.pop if args.last.is_a? Hash
 
