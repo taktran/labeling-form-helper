@@ -1,6 +1,8 @@
 require 'labeling_form_helper_helper'
 
-module LabelingFormTagHelper  
+module LabelingFormTagHelper
+  extend LabelingFormHelperHelper
+  
   def self.labelable #:nodoc:
     # A list of labelable helpers. We exclude password and file fields because they use text field,
     # so we would get double labels including them.
