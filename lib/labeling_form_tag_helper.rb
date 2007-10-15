@@ -20,7 +20,7 @@ module LabelingFormTagHelper
       mod.module_eval do
         
         define_method "#{helper}_with_label" do |*args|
-          label = LabelingFormHelperHelper.extract_label_options! args
+          label = extract_label_options! args
               
           LabelingFormTagHelper.handle_disparate_args! helper, args
       
@@ -31,7 +31,7 @@ module LabelingFormTagHelper
           label[:text] ||= name.humanize
           label[:for]  ||= name.gsub(/[^a-z0-9_-]+/, '_').gsub(/^_+|_+$/, '')
       
-          label_html = LabelingFormHelperHelper.extract_label_html! label
+          label_html = extract_label_html! label
       
           if label[:wrap]
             label_and_tag = if label[:after]
