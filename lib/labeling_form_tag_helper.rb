@@ -74,13 +74,13 @@ private
 
     # :check_box_tag and :radio_button_tag can take another argument
     # to determine if they are 'checked' or not.
-    if args.size == 2
-      if check_or_radio? helper
-        args.insert 2, false
-      end
+    if (2 == args.size) and check_or_radio?(helper)
+      args.insert 2, false
     end
 
     # Reunite the options with the rest of the args.
     args << options if options
+    
+    args
   end
 end
