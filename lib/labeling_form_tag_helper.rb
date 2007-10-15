@@ -20,7 +20,7 @@ module LabelingFormTagHelper
         define_method "#{helper}_with_label" do |*args|
           label = LabelingFormHelperHelper.extract_label_options! args
               
-          LabelingFormHelperHelper.handle_disparate_args! helper, args
+          LabelingFormTagHelper.handle_disparate_args! helper, args
       
           unlabeled_tag = send "#{helper}_without_label", *args
           return unlabeled_tag if false == label
