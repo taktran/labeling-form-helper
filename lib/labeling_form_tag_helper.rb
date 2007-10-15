@@ -1,8 +1,6 @@
 require 'labeling_form_helper_helper'
 
-module LabelingFormTagHelper
-  include LabelingFormHelperHelper
-  
+module LabelingFormTagHelper  
   def self.labelable #:nodoc:
     # A list of labelable helpers. We exclude password and file fields because they use text field,
     # so we would get double labels including them.
@@ -16,6 +14,8 @@ module LabelingFormTagHelper
   
   # Assumes you will be including this module in ActionView::Helpers::FormTagHelper.
   def self.included(mod)
+    mod.module_eval { include LabelingFormHelperHelper }
+    
     labelable.each do |helper|
       mod.module_eval do
         
