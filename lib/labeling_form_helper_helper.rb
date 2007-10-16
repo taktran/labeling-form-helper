@@ -1,6 +1,4 @@
 module LabelingFormHelperHelper #:nodoc:
-  extend self
-  
   def extract_label_options!(args) #:nodoc:
     options = args.last.is_a?(Hash) ? args.last : {}
     
@@ -21,10 +19,6 @@ module LabelingFormHelperHelper #:nodoc:
   
   def extract_label_html!(label) #:nodoc:
     [:id, :class, :for].inject({}) { |html,k| html.merge k => label.delete(k) }
-  end
-  
-  def validate_after_option!(label) #:nodoc:
-    raise ArgumentError, ':label_after works in conjunction with :label_wrap => true' if label[:after]
   end
   
   def check_or_radio?(helper) #:nodoc:
