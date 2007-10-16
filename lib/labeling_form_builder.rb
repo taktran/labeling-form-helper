@@ -24,11 +24,11 @@ class LabelingFormBuilder < ActionView::Helpers::FormBuilder
       
       # return label and tag according to custom options
       if label[:wrap]
-        label_and_tag = if label[:after]
+        label_and_tag = if label[:after] or :after == label[:wrap]
           [unlabeled_tag, label[:text]]
         else
           [label[:text], unlabeled_tag]
-        end.join
+        end.join("\n")
         
         @template.content_tag(:label, label_and_tag, label_html)
         

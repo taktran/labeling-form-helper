@@ -5,7 +5,7 @@ private
     
     label = options.delete :label
     
-    return label if label == false
+    return label if [nil,true,false].include?(label)
     
     label = case label
     when Hash   then label
