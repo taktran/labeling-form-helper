@@ -28,7 +28,7 @@ private
     
     # Default behavior for the builder is to be ON, so a missing :label option still means to use the plugin.
     # Default behavior for the tag helpers is to be OFF, so a missing :label option is like :label => false in the builder.
-    return false unless label and !builder
+    return false if label.nil? and !builder     
     
     label = case label
     when Hash     then label
