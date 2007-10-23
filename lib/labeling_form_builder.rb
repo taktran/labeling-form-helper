@@ -12,7 +12,7 @@ class LabelingFormBuilder < ActionView::Helpers::FormBuilder
   
   labelable.each do |helper|
     define_method helper do |*args|
-      label = extract_label_options! args
+      label = extract_label_options! args, true
       
       unlabeled_tag = super
       return unlabeled_tag if false == label
