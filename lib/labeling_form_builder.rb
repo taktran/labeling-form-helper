@@ -20,25 +20,24 @@ class LabelingFormBuilder < ActionView::Helpers::FormBuilder
       label[:for]  ||= extract_for unlabeled_tag
       label[:text] ||= args.first.to_s.humanize
       
-      label_html = extract_label_html! label
+      render_label_and_tag label, unlabeled_tag, @template
       
-      # return label and tag according to custom options
-      if label[:wrap]
-        label_and_tag = if label[:after] or :after == label[:wrap]
-          [unlabeled_tag, label[:text]]
-        else
-          [label[:text], unlabeled_tag]
-        end.join("\n")
-        
-        @template.content_tag(:label, label_and_tag, label_html)
-        
-      elsif label[:after]
-        unlabeled_tag + @template.content_tag(:label, label[:text], label_html)
-        
-      else
-        @template.content_tag(:label, label[:text], label_html) + unlabeled_tag
-        
-      end
+      # if label[:wrap]
+      #   label_and_tag = if label[:after] or :after == label[:wrap]
+      #     [unlabeled_tag, label[:text]]
+      #   else
+      #     [label[:text], unlabeled_tag]
+      #   end.join("\n")
+      #   
+      #   @template.content_tag(:label, label_and_tag, label_html)
+      #   
+      # elsif label[:after]
+      #   unlabeled_tag + @template.content_tag(:label, label[:text], label_html)
+      #   
+      # else
+      #   @template.content_tag(:label, label[:text], label_html) + unlabeled_tag
+      #   
+      # end
     end
   end
   

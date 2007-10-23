@@ -24,24 +24,24 @@ module ActionView::Helpers::FormTagHelper
       name = args.first.to_s
       label[:text] ||= name.humanize
       label[:for]  ||= name.gsub(/[^a-z0-9_-]+/, '_').gsub(/^_+|_+$/, '')
-  
-      label_html = extract_label_html! label
-  
-      if label[:wrap]
-        label_and_tag = if label[:after] or :after == label[:wrap]
-          [unlabeled_tag, label[:text]]
-        else
-          [label[:text], unlabeled_tag]
-        end.join
-    
-        content_tag(:label, label_and_tag, label_html)
-    
-      elsif label[:after]
-        unlabeled_tag + content_tag(:label, label[:text], label_html)
-    
-      else
-        content_tag(:label, label[:text], label_html) + unlabeled_tag
-      end
+      
+      render_label_and_tag label, unlabeled_tag
+      
+      # if label[:wrap]
+      #   label_and_tag = if label[:after] or :after == label[:wrap]
+      #     [unlabeled_tag, label[:text]]
+      #   else
+      #     [label[:text], unlabeled_tag]
+      #   end.join
+      # 
+      #   content_tag(:label, label_and_tag, label_html)
+      # 
+      # elsif label[:after]
+      #   unlabeled_tag + content_tag(:label, label[:text], label_html)
+      # 
+      # else
+      #   content_tag(:label, label[:text], label_html) + unlabeled_tag
+      # end
     end
     
     alias_method_chain helper, :label
