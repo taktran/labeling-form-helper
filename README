@@ -8,7 +8,10 @@ Contributors:
 Adds auto-labeling with some custom options to Rails' form helpers by extending ActionView::Helpers::FormBuilder and ActionView::Helpers::FormTagHelper.
   
   >> builder.text_field :attr, :label => 'yeah, foo'
-  => <label for="...">yeah, foo</label><input ... />
+  => <label for="thing_attr">yeah, foo</label><input ... />
+  
+  >> text_field_tag :attr, :label => true
+  => <label for="attr">attr</label><input ... />
 
 Valid values for the :label option are:
   
