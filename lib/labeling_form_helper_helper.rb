@@ -3,14 +3,12 @@ private
   def extract_label_options!(args) #:nodoc:
     options = args.last.is_a?(Hash) ? args.last : {}
     
-    label = options.delete :label
-    
-    return label if [nil,true,false].include?(label)
+    return false unless label = options.delete(:label )
     
     label = case label
-    when Hash   then label
-    when String then { :text => label }
-    when nil    then {}
+    when Hash     then label
+    when String   then { :text => label }
+    when nil,true then {}
     end
     
     label[:for] = options[:id]

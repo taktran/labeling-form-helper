@@ -14,7 +14,7 @@ class LabelingFormTagHelperTest < Test::Unit::TestCase
 
   def test_custom_id_affects_label_for_attribute
     labelable.each do |helper|
-      assert_match %r(<label.+for="bar"[^>]*>), send(helper, :foo, :id => :bar)
+      assert_match %r(<label.+for="bar"[^>]*>), send(helper, :foo, :id => :bar, :label => true)
     end
   end
   
@@ -61,7 +61,7 @@ class LabelingFormTagHelperTest < Test::Unit::TestCase
   
   def test_labels_once
     labelable.each do |helper|      
-      label_tags = send(helper, :foo).scan(%r(</?label)).size      
+      label_tags = send(helper, :foo, :label => true).scan(%r(</?label)).size      
       assert_equal 2, label_tags, ":#{helper} labeled #{label_tags / 2} times"
     end
   end
