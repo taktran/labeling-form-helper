@@ -21,10 +21,12 @@ private
     end
   end
   
-  def extract_label_options!(args) #:nodoc:
+  def extract_label_options!(args, builder = false) #:nodoc:
     options = args.last.is_a?(Hash) ? args.last : {}
     
-    return false unless label = options.delete(:label )
+    unless label = options.delete :label
+      return false unless builder
+    end
     
     label = case label
     when Hash     then label
