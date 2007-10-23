@@ -21,23 +21,6 @@ class LabelingFormBuilder < ActionView::Helpers::FormBuilder
       label[:text] ||= args.first.to_s.humanize
       
       render_label_and_tag label, unlabeled_tag, @template
-      
-      # if label[:wrap]
-      #   label_and_tag = if label[:after] or :after == label[:wrap]
-      #     [unlabeled_tag, label[:text]]
-      #   else
-      #     [label[:text], unlabeled_tag]
-      #   end.join("\n")
-      #   
-      #   @template.content_tag(:label, label_and_tag, label_html)
-      #   
-      # elsif label[:after]
-      #   unlabeled_tag + @template.content_tag(:label, label[:text], label_html)
-      #   
-      # else
-      #   @template.content_tag(:label, label[:text], label_html) + unlabeled_tag
-      #   
-      # end
     end
   end
   
