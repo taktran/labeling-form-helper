@@ -32,12 +32,14 @@ private
       return false
     end
     
+    # From here on, we need a Hash..
     label = case label
     when Hash     then label
     when String   then { :text => label }
     when nil,true then {}
     end
     
+    # Per the HTML spec..
     label[:for] = options[:id]
     
     label
