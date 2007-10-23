@@ -31,9 +31,9 @@ private
     return false if label.nil? and !builder     
     
     label = case label
-    when Hash     then label
-    when String   then { :text => label }
-    when nil,true then {}
+    when Hash,false then label
+    when String     then { :text => label }
+    when nil,true   then {}
     end
     
     label[:for] = options[:id]
