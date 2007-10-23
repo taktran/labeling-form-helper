@@ -30,6 +30,6 @@ private
   end
   
   def extract_for(tag)
-    tag.slice %r{id="([^"]+)"}, 1
+    tag[/id="([^"]+)"/, 1]
   end
 end
