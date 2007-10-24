@@ -2,28 +2,34 @@
 
 Adds auto-labeling with some custom options to Rails' form helpers by extending ActionView::Helpers::FormBuilder and ActionView::Helpers::FormTagHelper.
   
+  
   >> builder.text_field :attr, :label => 'yeah, foo'
   => <label for="thing_attr">yeah, foo</label><input ... />
   
   >> text_field_tag :attr, :label => true
   => <label for="attr">attr</label><input ... />
+  
 
 Valid values for the :label option are:
+  
   
   * true   - This will render with the default auto-labeling behavior. This is only useful for the _tag helpers which act as normal unless the :label option is set.
   * false  - This will render the normal behavior i.e. without a label. This is only useful for the LabelingFormBuilder which adds the behavior from this plugin be default.
   * String - Customize the label text, normally the humanized version of the attribute name for the field.
   * Hash   - Customize text with :text and the order of the label + input pair and/or whether or not the label wraps the input using :wrap and/or :after. Any other HTML tag attribute options will be applied to the label tag.
   
+  
 You can easily set the LabelingFormBuilder as the application default using the following expression:
-
+  
+  
   >> ActionView::Base.default_form_builder = LabelingFormBuilder
+  
     
 The LabelingFormTagHelper is enabled by default, but its behavior is not applied to the normal _tag helpers unless you use the :label option.
 
 Please label responsibly.
 
-= Contributors
+CONTRIBUTORS
   
   * Seth Thomas Rasmussen : http://sethrasmussen.com : sethrasmussen@gmail.com
   * Jeremy Kemper : http://bitsweat.net
