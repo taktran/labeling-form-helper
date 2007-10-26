@@ -24,16 +24,16 @@ In these examples, :labeling_form_builder is an instance of LabelingFormBuilder 
 Wrapping the input can be useful for checks and radios, as well as a style hook of sorts in some situations. The interface shown is identical for the form builder.
 
   
-  >> text_field_tag :attr_name, :label => { :wrap => true }
+  >> check_box_tag :attr_name, :label => { :wrap => true }
   => <label for="attr_name">Attr name <input ... /></label>
   
-  >> text_field_tag :attr_name, :label => { :after => true }
+  >> check_box_tag :attr_name, :label => { :after => true }
   => <input ... /><label for="attr_name">Attr name</label>
   
-  >> text_field_tag :attr_name, :label => { :wrap => true, :after => true }
+  >> radio_button_tag :attr_name, :label => { :wrap => true, :after => true }
   => <label for="attr_name"><input ... /> Attr name</label>
   
-  >> text_field_tag :attr_name, :label => { :wrap => :after }
+  >> radio_button_tag :attr_name, :label => { :wrap => :after }
   => <label for="attr_name"><input ... /> Attr name</label>
   
 
