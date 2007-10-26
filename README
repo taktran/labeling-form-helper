@@ -41,7 +41,7 @@ Valid values for the :label option are:
   
   
   * true   - This will render with the default auto-labeling behavior. This is only useful for the _tag helpers which act as normal unless the :label option is set.
-  * false  - This will render the normal behavior i.e. without a label. This is only useful for the LabelingFormBuilder which adds the behavior from this plugin be default.
+  * false  - This will render the normal behavior i.e. without a label. This is only useful for the LabelingFormBuilder which adds the behavior from this plugin by default.
   * String - Customize the label text, normally the humanized version of the attribute name for the field.
   * Hash   - Customize text with :text and the order of the label + input pair and/or whether or not the label wraps the input using :wrap and/or :after. Any other HTML tag attribute options will be applied to the label tag.
   
