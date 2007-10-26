@@ -14,6 +14,10 @@ In these examples, :labeling_form_builder is an instance of LabelingFormBuilder 
   >> labeling_form_builder.text_field :attr_name, :label => false
   => <input ... />
   
+  
+To ease integration of the _tag helpers, the labeling behavior is off by default unless you at least specify :label => true.
+
+  
   >> text_field_tag :attr_name
   => <input ... />
   
@@ -29,10 +33,6 @@ Wrapping the input can be useful for checks and radios, as well as a style hook 
   
   >> check_box_tag :attr_name, :label => { :after => true }
   => <input ... /><label for="attr_name">Attr name</label>
-  
-
-To ease integration of the _tag helpers, the labeling behavior is off by default unless you at least specify :label => true.
-
   
   >> radio_button_tag :attr_name, :label => { :wrap => true, :after => true }
   => <label for="attr_name"><input ... /> Attr name</label>
