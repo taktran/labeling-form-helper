@@ -66,6 +66,14 @@ class LabelingFormTagHelperTest < Test::Unit::TestCase
     end
   end
   
+  def test_with_options
+    labelable.each do |helper|
+      with_options :label => true do |foo|
+        assert_match %r(<label for="foo">Foo</label>), foo.send(helper, :foo)
+      end
+    end
+  end
+  
 private
   def labelable
     ActionView::Helpers::FormTagHelper.labelable
