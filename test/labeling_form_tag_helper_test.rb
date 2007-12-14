@@ -74,6 +74,20 @@ class LabelingFormTagHelperTest < Test::Unit::TestCase
     end
   end
   
+  # This test is getting a little messy with the regexp approach.
+  # TODO a better way to express those assertions?
+  def test_with_merging_options
+    labelable.each do |helper|
+      with_options :label => { :text => 'bar' } do |foo|
+        output = foo.send(helper, :foo, :label => { :class => 'baz' })
+        
+        assert_match %r(bar</label>), output
+        assert_match %r(<label .*?class="baz".*?>), output
+        assert_match %r(<label .*?for="foo".*?>), output
+      end
+    end
+  end
+  
 private
   def labelable
     ActionView::Helpers::FormTagHelper.labelable
