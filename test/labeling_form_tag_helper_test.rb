@@ -67,25 +67,30 @@ class LabelingFormTagHelperTest < Test::Unit::TestCase
   end
   
   def test_with_options
-    labelable.each do |helper|
-      with_options :label => true do |foo|
+    with_options :label => true do |foo|
+      labelable.each do |helper|
         assert_match %r(<label for="foo">Foo</label>), foo.send(helper, :foo)
       end
     end
   end
   
-  # This test is getting a little messy with the regexp approach.
-  # TODO a better way to express those assertions?
-  def test_with_merging_options
-    labelable.each do |helper|
-      with_options :label => { :text => 'bar' } do |foo|
-        output = foo.send(helper, :foo, :label => { :class => 'baz' })
+  begin
+    require File.dirname(__FILE__) + '/with_merging_options/lib/with_merging_options'
+    # This test is getting a little messy with the regexp approach.
+    # TODO a better way to express those assertions?
+    def test_with_merging_options
+    
+      with_merging_options :label => { :text => 'bar' } do |foo|
+        labelable.each do |helper|
+          output = foo.send(helper, :foo, :label => { :class => 'baz' })
         
-        assert_match %r(bar</label>), output
-        assert_match %r(<label .*?class="baz".*?>), output
-        assert_match %r(<label .*?for="foo".*?>), output
+          assert_match %r(bar</label>), output
+          assert_match %r(<label .*?class="baz".*?>), output
+          assert_match %r(<label .*?for="foo".*?>), output
+        end
       end
     end
+  rescue LoadError
   end
   
 private
