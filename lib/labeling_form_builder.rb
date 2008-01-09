@@ -7,7 +7,8 @@ class LabelingFormBuilder < ActionView::Helpers::FormBuilder
   # so we would get double labels including them.
   def self.labelable
     ((field_helpers + public_instance_methods.grep(/select/)) - 
-    %w( form_for fields_for hidden_field password_field file_field )).map(&:to_sym)
+    %w( form_for fields_for hidden_field password_field file_field field_set )).
+    map { |x| x.to_sym }
   end
   
   labelable.each do |helper|

@@ -8,19 +8,19 @@ module ActionView::Helpers::FormTagHelper
   # so we would get double labels including them in the list.
   def self.labelable #:nodoc:
     public_instance_methods.
-    reject { |h| h =~ /form|submit|hidden|password|file/ || h =~ /_with(out)?_label/ }.
-    map(&:to_sym)
+    reject { |h| h =~ /form|field_set|submit|hidden|password|file/ || h =~ /_with(out)?_label/ }.
+    map { |x| x.to_sym }
   end
   
   labelable.each do |helper|
     define_method "#{helper}_with_label" do |*args|
       label = extract_label_options! args
-          
+      
       handle_disparate_args! helper, args
-  
+      
       unlabeled_tag = send "#{helper}_without_label", *args
       return unlabeled_tag unless label
-  
+      
       name = args.first.to_s
       label[:text] ||= name.humanize
       label[:for]  ||= name.gsub(/[^a-z0-9_-]+/, '_').gsub(/^_+|_+$/, '')
@@ -31,7 +31,15 @@ module ActionView::Helpers::FormTagHelper
     alias_method_chain helper, :label
   end
   
-private  
+  # Test doesn't work, dunno why.. use with caution..
+  def labeling_form_for(*args, &block)
+    options = args.last.is_a?(Hash) ? args.pop : {}
+    options[:builder] = LabelingFormBuilder
+    args << options
+    form_for *args, &block
+  end
+  
+private
   # We want to account for certain optional arguments
   # that can occur before the options hash in the unlabeled helpers.
   #
@@ -40,7 +48,7 @@ private
   def handle_disparate_args!(helper, args) #:nodoc:
     # Ignore the options hash, if present, until we are done munging the args.
     options = args.pop if args.last.is_a? Hash
-
+    
     if args.size == 1
       if check_or_radio?(helper)
         args.insert 1, 1
@@ -50,13 +58,13 @@ private
         args.insert 1, nil
       end
     end
-
+    
     # :check_box_tag and :radio_button_tag can take another argument
     # to determine if they are 'checked' or not.
     if (2 == args.size) and check_or_radio?(helper)
       args.insert 2, false
     end
-
+    
     # Reunite the options with the rest of the args.
     args << options if options
     
