@@ -4,11 +4,9 @@ module ActionView::Helpers::FormTagHelper
   include LabelingFormHelperHelper
   
   # A list of labelable helpers.
-  # We exclude password and file fields because they use a text field, 
-  # so we would get double labels including them in the list.
   def self.labelable #:nodoc:
     public_instance_methods.
-    reject { |h| h =~ /form|field_set|submit|hidden|password|file/ || h =~ /_with(out)?_label/ }.
+    reject { |h| h =~ /form|field_set|submit|hidden/ || h =~ /_with(out)?_label/ }.
     map { |x| x.to_sym }
   end
   
