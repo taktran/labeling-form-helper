@@ -21,7 +21,7 @@ private
     end
   end
   
-  def extract_label_options!(args, builder = false) #:nodoc:
+  def extract_label_options!(helper, args, builder = false) #:nodoc:
     options = args.last.is_a?(Hash) ? args.last : {}
     
     label = options.delete :label
@@ -37,6 +37,10 @@ private
     when Hash     then label
     when String   then { :text => label }
     when nil,true then {}
+    end
+    
+    if LabelingFormHelper.wrap_checks_and_radios and check_or_radio?(helper)
+      label[:wrap] ||= :after
     end
     
     # Per the HTML spec..

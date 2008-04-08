@@ -9,14 +9,12 @@ mocha
 
 $:.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 
-%w(
-labeling_form_tag_helper
-labeling_form_builder
-).each { |x| require x }
+require "labeling_form_helper"
 
 class LabelingFormTagHelperTest < Test::Unit::TestCase
   include ActionView::Helpers::TagHelper,
-          ActionView::Helpers::FormTagHelper
+          ActionView::Helpers::FormTagHelper,
+          LabelingFormHelperHelper
   
   def test_original_behavior
     labelable.each do |helper|
@@ -71,9 +69,23 @@ class LabelingFormTagHelperTest < Test::Unit::TestCase
     end
   end
   
+  def test_wrap_checks_and_radios
+    LabelingFormHelper.wrap_checks_and_radios = true
+    [:check_box_tag, :radio_button_tag].each do |helper|
+      tag = send helper, :foo, :label => true
+      assert_match %r(<label[^>]*?><input[^>]*?/>\s*Foo</label>), tag
+    end
+    
+    LabelingFormHelper.wrap_checks_and_radios = false
+    [:check_box_tag, :radio_button_tag].each do |helper|
+      tag = send helper, :foo, :label => true
+      assert_match %r(<label[^>]*?>Foo</label><input[^>]*?/>), tag
+    end
+  end
+  
   def test_labels_once
-    labelable.each do |helper|      
-      label_tags = send(helper, :foo, :label => true).scan(%r(</?label)).size      
+    labelable.each do |helper|
+      label_tags = send(helper, :foo, :label => true).scan(%r(</?label)).size
       assert_equal 2, label_tags, ":#{helper} labeled #{label_tags / 2} times"
     end
   end
@@ -81,7 +93,11 @@ class LabelingFormTagHelperTest < Test::Unit::TestCase
   def test_with_options
     with_options :label => true do |foo|
       labelable.each do |helper|
-        assert_match %r(<label for="foo">Foo</label>), foo.send(helper, :foo)
+        if check_or_radio?(helper)
+          assert_match %r(<label[^>]*?><input[^>]*?/>\s*Foo</label>), foo.send(helper, :foo)
+        else
+          assert_match %r(<label for="foo">Foo</label>), foo.send(helper, :foo)
+        end
       end
     end
   end

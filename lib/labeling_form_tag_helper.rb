@@ -12,7 +12,7 @@ module ActionView::Helpers::FormTagHelper
   
   labelable.each do |helper|
     define_method "#{helper}_with_label" do |*args|
-      label = extract_label_options! args
+      label = extract_label_options! helper, args
       
       handle_disparate_args! helper, args
       
