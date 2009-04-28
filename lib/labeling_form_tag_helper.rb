@@ -6,7 +6,7 @@ module ActionView::Helpers::FormTagHelper
   # A list of labelable helpers.
   def self.labelable #:nodoc:
     public_instance_methods.
-    reject { |h| h =~ /form|field_set|submit|hidden/ || h =~ /_with(out)?_label/ }.
+    reject { |h| h =~ /form|field_set|submit|hidden|label/ || h =~ /_with(out)?_label/ }.
     map { |x| x.to_sym }
   end
   
