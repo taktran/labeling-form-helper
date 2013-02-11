@@ -26,10 +26,6 @@ class LabelingFormBuilder < ActionView::Helpers::FormBuilder
   end
   
 private
-  def extract_id(tag)
-    tag[/\[([^]]+)\]/, 1]
-  end
-  
   def extract_for(tag)
     tag[/id="([^"]+)"/, 1]
   end
