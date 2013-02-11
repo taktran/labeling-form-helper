@@ -15,7 +15,7 @@ class LabelingFormBuilder < ActionView::Helpers::FormBuilder
     define_method helper do |*args|
       label = extract_label_options! args, true
 
-      unlabeled_tag = super
+      unlabeled_tag = super(*args)
       return unlabeled_tag if false == label
 
       label[:for]  ||= extract_for unlabeled_tag
